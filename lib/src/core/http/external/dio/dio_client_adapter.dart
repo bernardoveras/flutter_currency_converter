@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 import '../errors/http_exception.dart';
 import 'dio_response_adapter.dart';
@@ -9,27 +8,20 @@ import '../../infra/http_client.dart';
 import '../../infra/http_response.dart';
 
 class DioClientAdapter implements HttpClient {
-  DioClientAdapter(this._dio) {
-    if (kDebugMode) {
-      _dio.interceptors.add(LogInterceptor(
-        responseBody: true,
-        error: true,
-        requestHeader: false,
-        responseHeader: false,
-        request: false,
-        requestBody: false,
-      ));
-    }
-  }
+  DioClientAdapter(this._dio);
 
   final Dio _dio;
 
+  Map<String, dynamic> _defaultHeader([Map<String, dynamic>? headers]) {
+    return {'content-type': 'application/json; charset=utf-8', ...?headers};
+  }
+
   @override
-  Future<HttpResponse<T>> get<T>(String url, {Map<String, dynamic>? headers}) async {
+  Future<HttpResponse> get(String url, {Map<String, dynamic>? headers}) async {
     try {
       var result = await _dio.get(
         url,
-        options: headers != null ? Options(headers: headers) : null,
+        options: Options(headers: _defaultHeader(headers)),
       );
 
       return DioResponseAdapter.toHttpAdapter(result);
@@ -39,12 +31,12 @@ class DioClientAdapter implements HttpClient {
   }
 
   @override
-  Future<HttpResponse<T>> post<T>(String url, {Map<String, dynamic>? headers, dynamic body}) async {
+  Future<HttpResponse> post(String url, {Map<String, dynamic>? headers, dynamic body}) async {
     try {
       var result = await _dio.post(
         url,
         data: jsonEncode(body),
-        options: headers != null ? Options(headers: headers) : null,
+        options: headers != null ? Options(headers: _defaultHeader(headers)) : null,
       );
 
       return DioResponseAdapter.toHttpAdapter(result);
@@ -54,12 +46,12 @@ class DioClientAdapter implements HttpClient {
   }
 
   @override
-  Future<HttpResponse<T>> put<T>(String url, {Map<String, dynamic>? headers, dynamic body}) async {
+  Future<HttpResponse> put(String url, {Map<String, dynamic>? headers, dynamic body}) async {
     try {
       var result = await _dio.put(
         url,
         data: jsonEncode(body),
-        options: headers != null ? Options(headers: headers) : null,
+        options: headers != null ? Options(headers: _defaultHeader(headers)) : null,
       );
 
       return DioResponseAdapter.toHttpAdapter(result);
@@ -69,12 +61,12 @@ class DioClientAdapter implements HttpClient {
   }
 
   @override
-  Future<HttpResponse<T>> delete<T>(String url, {Map<String, dynamic>? headers, dynamic body}) async {
+  Future<HttpResponse> delete(String url, {Map<String, dynamic>? headers, dynamic body}) async {
     try {
       var result = await _dio.delete(
         url,
         data: jsonEncode(body),
-        options: headers != null ? Options(headers: headers) : null,
+        options: headers != null ? Options(headers: _defaultHeader(headers)) : null,
       );
 
       return DioResponseAdapter.toHttpAdapter(result);

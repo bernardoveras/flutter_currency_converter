@@ -1,5 +1,5 @@
 
-class HttpResponse<T> {
+class HttpResponse {
   const HttpResponse({
     this.data,
     this.headers,
@@ -8,7 +8,7 @@ class HttpResponse<T> {
   });
 
   /// Response body. may have been transformed, please refer to [ResponseType].
-  final T? data;
+  final dynamic data;
 
   /// Response headers.
   final Map<String, dynamic>? headers;

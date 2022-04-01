@@ -1,8 +1,8 @@
 import 'http_response.dart';
 
 abstract class HttpClient {
-  Future<HttpResponse<T>> get<T>(String url, {Map<String, dynamic>? headers});
-  Future<HttpResponse<T>> post<T>(String url, {Map<String, dynamic>? headers, dynamic body});
-  Future<HttpResponse<T>> put<T>(String url, {Map<String, dynamic>? headers, dynamic body});
-  Future<HttpResponse<T>> delete<T>(String url, {Map<String, dynamic>? headers});
+  Future<HttpResponse> get(String url, {Map<String, dynamic>? headers});
+  Future<HttpResponse> post(String url, {Map<String, dynamic>? headers, dynamic body});
+  Future<HttpResponse> put(String url, {Map<String, dynamic>? headers, dynamic body});
+  Future<HttpResponse> delete(String url, {Map<String, dynamic>? headers});
 }

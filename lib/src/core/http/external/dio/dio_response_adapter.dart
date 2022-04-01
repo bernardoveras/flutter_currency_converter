@@ -7,12 +7,12 @@ import '../../infra/http_response.dart';
 class DioResponseAdapter {
   const DioResponseAdapter._();
 
-  static HttpResponse<T> toHttpAdapter<T>(Response response) {
-    return HttpResponse<T>(
+  static HttpResponse toHttpAdapter(Response response) {
+    return HttpResponse(
       statusCode: response.statusCode,
-      data: jsonDecode(response.data),
-      headers: response.headers.map,
+      data: (response.data is String) ? jsonDecode(response.data) : response.data,
       statusMessage: response.statusMessage,
+      headers: response.headers.map,
     );
   }
 }
