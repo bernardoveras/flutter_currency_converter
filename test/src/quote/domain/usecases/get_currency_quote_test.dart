@@ -1,19 +1,21 @@
+import 'package:currency_converter/src/quote/domain/repositories/quote_repository.dart';
 import 'package:test/test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:currency_converter/src/quote/domain/entities/quote_entity.dart';
+import '../mocks/quote_mocks.dart';
 import 'package:currency_converter/src/quote/domain/enums/currency_enum.dart';
-import 'package:currency_converter/src/quote/domain/repositories/quote_repository.dart';
 import 'package:currency_converter/src/quote/domain/usecases/get_currency_quote.dart';
 
-class QuoteRepositoryMock extends Mock implements IQuoteRepository {}
-
-class QuoteEntityMock extends Mock implements QuoteEntity {}
-
 void main() {
+  late IQuoteRepository repository;
+  late IGetCurrencyQuote usecase;
+
+  setUpAll(() {
+    repository = QuoteRepositoryMock();
+    usecase = GetCurrencyQuote(repository);
+  });
+
   test('Should return a list of QuoteEntity', () async {
-    final repository = QuoteRepositoryMock();
-    final usecase = GetCurrencyQuote(repository);
     final entity = QuoteEntityMock();
 
     when(() => repository.getCurrencyQuote(Currency.brl, Currency.usd)).thenAnswer((_) => Future.value(entity));
