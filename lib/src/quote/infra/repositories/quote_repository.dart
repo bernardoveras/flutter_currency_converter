@@ -11,15 +11,9 @@ class QuoteRepository implements IQuoteRepository {
 
   @override
   Future<QuoteEntity> getCurrencyQuote(Currency currency, Currency currencyIn) async {
-    final String code = '${currency.name.toUpperCase()}${currencyIn.name.toUpperCase()}';
-
     var result = await _datasource.getCurrencyQuote(currency, currencyIn);
 
-    if (!result.containsKey(code)) {
-      throw Exception('Ocorreu um erro ao buscar a cotação');
-    }
-
-    return _deserialize(result[code]);
+    return _deserialize(result);
   }
 
   QuoteEntity _deserialize(Map map) => MapToQuote.fromMap(map);

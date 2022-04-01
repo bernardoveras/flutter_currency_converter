@@ -6,7 +6,7 @@ import 'package:mocktail/mocktail.dart';
 
 import 'package:currency_converter/src/quote/infra/datasources/quote_datasource.dart';
 
-import '../mocks/currency_quote_result.dart';
+import '../mocks/currency_quote_datasource_result.dart';
 
 class QuoteDatasourceMock extends Mock implements IQuoteDatasource {}
 
@@ -20,7 +20,7 @@ void main() {
   });
 
   test('Should return a QuoteEntity', () async {
-    when(() => datasource.getCurrencyQuote(Currency.brl, Currency.usd)).thenAnswer((_) => Future.value(currencyQuoteResult));
+    when(() => datasource.getCurrencyQuote(Currency.brl, Currency.usd)).thenAnswer((_) => Future.value(currencyQuoteDatasourceResult));
 
     final result = await repository.getCurrencyQuote(Currency.brl, Currency.usd);
 

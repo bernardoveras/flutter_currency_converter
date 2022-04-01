@@ -1,0 +1,15 @@
+{
+	"BRLUSD": {
+		"code": "BRL",
+		"codein": "USD",
+		"name": "Real Brasileiro/Dólar Americano",
+		"high": "0.2149",
+		"low": "0.2109",
+		"varBid": "0.0037",
+		"pctChange": "1.77",
+		"bid": "0.2146",
+		"ask": "0.2147",
+		"timestamp": "1648846793",
+		"create_date": "2022-04-01 17:59:53"
+	}
+}

@@ -7,7 +7,7 @@ import 'dio_response_adapter.dart';
 import '../../infra/http_client.dart';
 import '../../infra/http_response.dart';
 
-class DioClientAdapter implements HttpClient {
+class DioClientAdapter implements IHttpClient {
   DioClientAdapter(this._dio);
 
   final Dio _dio;
